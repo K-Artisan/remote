@@ -19,7 +19,7 @@ import com.arzirtime.remote.client.ui.MainActivity;
  */
 public class MyCenterFragment extends Fragment {
 
-    private  View view;
+    private   View view;
     private ISingleActivity parentActivity;
 
     public MyCenterFragment(ISingleActivity parentActivity) {
@@ -49,15 +49,16 @@ public class MyCenterFragment extends Fragment {
                 //文字信息
                 TextView textView = view.findViewById(R.id.mycter_text);
                 if(textView != null) {
-                    textView.setText(copyText("个人中心----------------"));
+                    textView.setText(copyText("同一个Activity，多个Fragmet不同布局"));
                 }
             }
         }).start();
+
     }
 
     private String copyText(String text) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 20; i++) {
             stringBuilder.append(text);
         }
         return stringBuilder.toString();

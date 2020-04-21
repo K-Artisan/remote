@@ -31,7 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity  implements ISingleActivity{
+public class MainActivity extends BaseActivity implements ISingleActivity {
     private String TAG = MainActivity.class.getSimpleName();
 
     //bottomNavigationBar，
@@ -58,12 +58,12 @@ public class MainActivity extends BaseActivity  implements ISingleActivity{
      */
     @Override
     public void initBeforeLoadFragment(Fragment fragment) {
-        if (DeviceCenterFragment.class.isInstance(fragment)){
-            initBeforeLoadDeviceFragment();
-        }else if(DeviceCenterFragment.class.isInstance(fragment)){
-            initBeforeLoadSamrtFragment();
-        }else if(DeviceCenterFragment.class.isInstance(fragment)){
-            initBeforeLoadMyCenterFragment();
+        if (DeviceCenterFragment.class.isInstance(fragment)) {
+            initBeforeLoadDeviceFragment(fragment);
+        } else if (SmartFragment.class.isInstance(fragment)) {
+            initBeforeLoadSamrtFragment(fragment);
+        } else if (MyCenterFragment.class.isInstance(fragment)) {
+            initBeforeLoadMyCenterFragment(fragment);
         }
     }
 
@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity  implements ISingleActivity{
 
     /**
      * 加载默认Fragment
-     * */
+     */
     private void loadDefaultFrament() {
         initBottomNavigationBar(0);
         loadDeviceFragment();
@@ -194,9 +194,11 @@ public class MainActivity extends BaseActivity  implements ISingleActivity{
         transaction.commit();
     }
 
-    private void initBeforeLoadDeviceFragment() {
+    private void initBeforeLoadDeviceFragment(Fragment fragment) {
+        View fragmentView = fragment.getView();
+
         //使用Toolbar替换系统的ActionBar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = fragmentView.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -205,11 +207,11 @@ public class MainActivity extends BaseActivity  implements ISingleActivity{
         }
 
         //折叠布局：CollapsingToolbarLayout
-        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
+        CollapsingToolbarLayout collapsingToolbarLayout = fragmentView.findViewById(R.id.collapsingToolbarLayout);
         collapsingToolbarLayout.setTitle(" ");
 
         //图片
-        ImageView deviceImageView = findViewById(R.id.device_imgview);
+        ImageView deviceImageView = fragmentView.findViewById(R.id.device_imgview);
         Glide.with(this).load(R.drawable.boot_splash2)
                 .placeholder(R.drawable.boot_splash2) //加载中显示d 图片
                 //.error(R.drawable.device_default) //异常显示的图片
@@ -218,11 +220,57 @@ public class MainActivity extends BaseActivity  implements ISingleActivity{
                 .into(deviceImageView);
     }
 
-    private void initBeforeLoadSamrtFragment() {
+    private void initBeforeLoadSamrtFragment(Fragment fragment) {
+        View fragmentView = fragment.getView();
+
+        //使用Toolbar替换系统的ActionBar
+        Toolbar toolbar = fragmentView.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            //actionBar.setDisplayHomeAsUpEnabled(true); //启用HomeAsUp按钮，其id永远为：android.R.id.home
+            //actionBar.setHomeAsUpIndicator();
+        }
+
+        //折叠布局：CollapsingToolbarLayout
+        CollapsingToolbarLayout collapsingToolbarLayout = fragmentView.findViewById(R.id.collapsingToolbarLayout);
+        collapsingToolbarLayout.setTitle("智能中心");
+
+        //图片
+        ImageView deviceImageView = fragmentView.findViewById(R.id.device_imgview);
+        Glide.with(this).load(R.drawable.boot_splash)
+                .placeholder(R.drawable.boot_splash) //加载中显示d 图片
+                //.error(R.drawable.device_default) //异常显示的图片
+                //.fallback(R.drawable.device_default) //图片为null时显示的图片
+                .centerCrop()
+                .into(deviceImageView);
 
     }
 
-    private void initBeforeLoadMyCenterFragment() {
+    private void initBeforeLoadMyCenterFragment(Fragment fragment) {
 
+        View fragmentView = fragment.getView();
+
+        //使用Toolbar替换系统的ActionBar
+        Toolbar toolbar = fragmentView.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            //actionBar.setDisplayHomeAsUpEnabled(true); //启用HomeAsUp按钮，其id永远为：android.R.id.home
+            //actionBar.setHomeAsUpIndicator();
+        }
+
+        //折叠布局：CollapsingToolbarLayout
+        CollapsingToolbarLayout collapsingToolbarLayout = fragmentView.findViewById(R.id.collapsingToolbarLayout);
+        collapsingToolbarLayout.setTitle("个人中心");
+
+        //图片
+        ImageView deviceImageView = fragmentView.findViewById(R.id.mycenter_bar_img);
+        Glide.with(this).load(R.drawable.ads_pic2)
+                .placeholder(R.drawable.boot_splash2) //加载中显示d 图片
+                //.error(R.drawable.device_default) //异常显示的图片
+                //.fallback(R.drawable.device_default) //图片为null时显示的图片
+                .centerCrop()
+                .into(deviceImageView);
     }
 }
