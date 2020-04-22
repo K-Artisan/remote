@@ -8,6 +8,8 @@
     <color name="removeBtnBg">#00FF0000</color>
     <color name="orange">#DC143C</color>
     <color name="black">#000000</color>
-    <color name="red">#FF0000</color>
+
+    <color name="tabNormal">#FFA5C0C5</color>
+    <color name="tabSelected">#FF03515D</color>
 
 </resources>

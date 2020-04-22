@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="navigator_common_height">50dp</dimen>
+    <dimen name="common_navigator_height">45dp</dimen>
+
+</resources>

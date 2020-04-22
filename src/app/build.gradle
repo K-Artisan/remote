@@ -45,4 +45,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.2.0'
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
 }

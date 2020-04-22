@@ -24,7 +24,7 @@
         <activity
             android:name=".client.ui.AdvActivity"
             android:theme="@style/AppTheme.Splash" />
-        <activity android:name=".client.ui.MainActivity" />
+        <activity android:name=".client.ui.MainActivity" android:theme="@style/StatusBarTheme"/>
     </application>
 
 </manifest>

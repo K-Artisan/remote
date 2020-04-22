@@ -2,7 +2,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -59,37 +58,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/device_center_magic_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                app:cardCornerRadius="4dp">
+                android:layout_height="@dimen/navigator_common_height"
+                android:background="@color/colorWhite" />
 
-                <EditText
-                    android:id="@+id/tv_device_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp" />
+            <FrameLayout
+                android:id="@+id/device_center_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-            </androidx.cardview.widget.CardView>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <com.ashokvarma.bottomnavigation.BottomNavigationBar
-        android:id="@+id/main_bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/content_scrollview"
-        app:layout_anchorGravity="bottom|end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

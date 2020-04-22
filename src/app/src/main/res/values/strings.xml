@@ -3,4 +3,7 @@
     <string name="nav_title_device">设备</string>
     <string name="nav_title_smart">智能</string>
     <string name="nav_title_my_center">我的</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,17 +1,12 @@
 package com.arzirtime.remote.client.ui;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,17 +16,15 @@ import com.arzirtime.remote.R;
 import com.arzirtime.remote.client.ui.device.DeviceCenterFragment;
 import com.arzirtime.remote.client.ui.mycenter.MyCenterFragment;
 import com.arzirtime.remote.client.ui.smart.SmartFragment;
-import com.arzirtime.support.util.ToastUtils;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements ISingleActivity {
+public class MainActivity extends BaseActivity  {
     private String TAG = MainActivity.class.getSimpleName();
 
     //bottomNavigationBar，
@@ -54,16 +47,18 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
     }
 
     /**
-     * 在加载Frament之前初始化自身的界面
-     */
-    @Override
-    public void initBeforeLoadFragment(Fragment fragment) {
+     * 在加载Frament加载完视图后 开始初始化
+     * 此方法是解决如下一些场景场景：
+     * 1.有些视图是在Frament布局中的，如状态栏，必须等Fragment视图加载完再进行初始化，否则无法找到控件
+     * 2.有些初始化工作无法在Fragment中进行的，比如：初始状态栏，这样得在Activity中进行
+     * */
+    public void initAfterFragmentViewCreated(Fragment fragment) {
         if (DeviceCenterFragment.class.isInstance(fragment)) {
-            initBeforeLoadDeviceFragment(fragment);
+            initAfterDeviceFragmentViewCreated(fragment);
         } else if (SmartFragment.class.isInstance(fragment)) {
-            initBeforeLoadSamrtFragment(fragment);
+            initAfterSmartFragmentViewCreated(fragment);
         } else if (MyCenterFragment.class.isInstance(fragment)) {
-            initBeforeLoadMyCenterFragment(fragment);
+            initAfterMyCenterFragmentViewCreated(fragment);
         }
     }
 
@@ -88,7 +83,7 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_DEFAULT)
                 .initialise();
 
-        bottomNavigationBar.setAutoHideEnabled(false);
+        bottomNavigationBar.setAutoHideEnabled(true);
 /*
         numberBadgeItem.setBorderWidth(1)
                 .setBackgroundColorResource(R.color.black)
@@ -144,7 +139,7 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
 
     public void loadDeviceFragment() {
         if (deviceCenterFragment == null) {
-            deviceCenterFragment = DeviceCenterFragment.newInstance(this);
+            deviceCenterFragment = DeviceCenterFragment.newInstance();
             fragments.add(deviceCenterFragment);
         }
         switchFragment(deviceCenterFragment);
@@ -152,7 +147,7 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
 
     public void loadSmartFragment() {
         if (smartFragment == null) {
-            smartFragment = SmartFragment.newInstance(this, null, null);
+            smartFragment = SmartFragment.newInstance(null, null);
             fragments.add(smartFragment);
         }
         switchFragment(smartFragment);
@@ -160,7 +155,7 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
 
     public void loadMyCenterFragment() {
         if (myCenterFragment == null) {
-            myCenterFragment = MyCenterFragment.newInstance(this);
+            myCenterFragment = MyCenterFragment.newInstance();
             fragments.add(myCenterFragment);
         }
         switchFragment(myCenterFragment);
@@ -194,7 +189,7 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
         transaction.commit();
     }
 
-    private void initBeforeLoadDeviceFragment(Fragment fragment) {
+    private void initAfterDeviceFragmentViewCreated(Fragment fragment) {
         View fragmentView = fragment.getView();
 
         //使用Toolbar替换系统的ActionBar
@@ -220,7 +215,7 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
                 .into(deviceImageView);
     }
 
-    private void initBeforeLoadSamrtFragment(Fragment fragment) {
+    private void initAfterSmartFragmentViewCreated(Fragment fragment) {
         View fragmentView = fragment.getView();
 
         //使用Toolbar替换系统的ActionBar
@@ -247,7 +242,7 @@ public class MainActivity extends BaseActivity implements ISingleActivity {
 
     }
 
-    private void initBeforeLoadMyCenterFragment(Fragment fragment) {
+    private void initAfterMyCenterFragmentViewCreated(Fragment fragment) {
 
         View fragmentView = fragment.getView();
 
